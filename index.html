@@ -15,9 +15,7 @@
             <div>12.02.22 12:18</div>
           </div>
           <div class="comment-body">
-            <div class="comment-text">
-              Это будет первый комментарий на этой странице
-            </div>
+            <div class="comment-text">Это будет первый комментарий на этой странице</div>
           </div>
           <div class="comment-footer">
             <div class="likes">
@@ -32,9 +30,7 @@
             <div>13.02.22 19:22</div>
           </div>
           <div class="comment-body">
-            <div class="comment-text">
-              Мне нравится как оформлена эта страница! ❤
-            </div>
+            <div class="comment-text">Мне нравится как оформлена эта страница! ❤</div>
           </div>
           <div class="comment-footer">
             <div class="likes">
@@ -45,17 +41,8 @@
         </li>
       </ul>
       <div class="add-form">
-        <input
-          type="text"
-          class="add-form-name"
-          placeholder="Введите ваше имя"
-        />
-        <textarea
-          type="textarea"
-          class="add-form-text"
-          placeholder="Введите ваш коментарий"
-          rows="4"
-        ></textarea>
+        <input type="text" class="add-form-name" placeholder="Введите ваше имя" id="name-input"/>
+        <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4" id="comment-input"></textarea>
         <div class="add-form-row">
           <button class="add-form-button">Написать</button>
         </div>
@@ -66,6 +53,11 @@
   <script>
     "use strict";
     // Код писать здесь
-    console.log("It works!");
+    const nameInputElement = document.getElementById("name-input");
+    const commentInputElement = document.getElementById("comment-input");
+
+    
+
+    console.log("Работает!");
   </script>
 </html>
