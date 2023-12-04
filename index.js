@@ -7,6 +7,15 @@ const commentsElement = document.getElementById("comments");
 const form = document.getElementById("add-form");
 const container = document.getElementById("add-container")
 
+// const formatDateTime = (date) => {
+//     const day = String(date.getDate()).padStart(2, '0');
+//     const month = String(date.getMonth()).padStart(2, '0');
+//     const year = String(date.getFullYear() - 2000);
+//     const minutes = String(date.getMinutes()).padStart(2, '0');
+//     const hours = String(date.getHours()).padStart(2, '0');
+//     return `${day}.${month}.${year} ${hours}:${minutes}`;
+// };
+
 const comments = [
     {
         name: "Глеб Фокин",
@@ -21,6 +30,34 @@ const comments = [
         likes: 75
     }
 ];
+//Ркндер функция
+const renderComments = () => {
+    const commentsHtml = comments
+        .map((comment, index) => {
+            return `<li class="comment" id="comment">
+                <div class="comment-header" >
+                    <div>${comment.name}</div>
+                    <div>${comment.date}</div>
+                </div>
+                <div class="comment-body">
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+                <div class="comment-footer">
+                    <button id=delete-form-button class="delete-form-button" data-index="${index}">Удалить</button>
+                    <div class="likes">
+                        <span class="likes-counter">${comment.likes}</span>
+                        <button class="like-button" data-index="${index}"></button>
+                    </div>
+                </div>
+             </li>`;
+        }).join("");
+    
+    commentsElement.innerHTML = commentsHtml;
+  
+    initLikesListeners();
+    initLikesListeners();
+    initDeleteButtonsLisners();
+};
 //Кнопка лайков
 const initLikesListeners = () => {
     for (const commentElement of document.querySelectorAll(".like-button")) {
@@ -37,7 +74,7 @@ const initLikesListeners = () => {
 };
 //Кнопка удаления 
 const initDeleteButtonsLisners = () => {
-    const deleteButtonsElements = document.querySelectorAll(".delete__form-button");
+    const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
     for (const deleteButtonsElement of deleteButtonsElements) {
         deleteButtonsElement.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -47,41 +84,9 @@ const initDeleteButtonsLisners = () => {
         });
     }; 
 };
-
-const renderComments = () => {
-    const commentsHtml = comments
-        .map((comment, index) => {
-            return `<li class="comment" id="comment">
-                <div class="comment-header" >
-                    <div>${comment.name}</div>
-                    <div>${comment.date}</div>
-                </div>
-                <div class="comment-body">
-                    <div class="comment-text">${comment.text}</div>
-                </div>
-                <div class="comment-footer">
-                    <button id=delete__form-button class="delete__form-button" вфвеф-index="${index}">Удалить</button>
-                    <div class="likes">
-                        <span class="likes-counter">${comment.likes}</span>
-                        <button class="like-button" data-index="${index}"></button>
-                    </div>
-                </div>
-             </li>`;
-        }).join("");
-    
-    commentsElement.innerHTML = commentsHtml;
-  
-    initLikesListeners();
-  
-
-};
-
-
 renderComments();
-initLikesListeners();
-initDeleteButtonsLisners();
 
-  
+//форма добавления  
 buttonElement.addEventListener("click", () => {
     nameInputElement.style.backgroundColor = "white" ;
     commentInputElement.style.backgroundColor = "white";
@@ -96,15 +101,17 @@ buttonElement.addEventListener("click", () => {
 
     comments.push({
         name: nameInputElement.value,
-        text: commentInputElement.value
-
+       // data:
+        text: commentInputElement.value,
+        likes: 0,
     });
-    
+
 
     renderComments();
     initLikesListeners();
     initDeleteButtonsLisners();
-    
+  
+
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
