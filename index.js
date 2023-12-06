@@ -7,27 +7,30 @@ const commentsElement = document.getElementById("comments");
 const form = document.getElementById("add-form");
 const container = document.getElementById("add-container")
 
-// const formatDateTime = (date) => {
-//     const day = String(date.getDate()).padStart(2, '0');
-//     const month = String(date.getMonth()).padStart(2, '0');
-//     const year = String(date.getFullYear() - 2000);
-//     const minutes = String(date.getMinutes()).padStart(2, '0');
-//     const hours = String(date.getHours()).padStart(2, '0');
-//     return `${day}.${month}.${year} ${hours}:${minutes}`;
-// };
+const formatDateTime = () => {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth()).padStart(2, '0');
+    const year = String(currentDate.getFullYear() - 2000);
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+};
 
 const comments = [
     {
         name: "Глеб Фокин",
         date: "13.02.22 19:22",
         text: "Мне нравится как оформлена эта страница! ❤",
-        likes: 3
+        likes: 3,
+        isLike: true,
     },
     {
         name: "Варвара Н",
         date: "12.02.22 12:18",
         text: "Это будет первый комментарий на этой странице",
-        likes: 75
+        likes: 75,
+        isLike: false,
     }
 ];
 //Ркндер функция
@@ -46,7 +49,7 @@ const renderComments = () => {
                     <button id=delete-form-button class="delete-form-button" data-index="${index}">Удалить</button>
                     <div class="likes">
                         <span class="likes-counter">${comment.likes}</span>
-                        <button class="like-button" data-index="${index}"></button>
+                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-index="${index}"></button>
                     </div>
                 </div>
              </li>`;
@@ -54,7 +57,6 @@ const renderComments = () => {
     
     commentsElement.innerHTML = commentsHtml;
   
-    initLikesListeners();
     initLikesListeners();
     initDeleteButtonsLisners();
 };
@@ -65,8 +67,8 @@ const initLikesListeners = () => {
         commentElement.addEventListener("click", (event) => {
             event.stopPropagation();
             const index = commentElement.dataset.index;
-            comments[index].likes += comments[index].isLiked ? -1 : +1;
-            comments[index].isLiked = !comments[index].isLiked;
+            comments[index].likes += comments[index].isLike ? -1 : +1;
+            comments[index].isLike = !comments[index].isLike;
             renderComments();
         }); 
     };
@@ -101,14 +103,14 @@ buttonElement.addEventListener("click", () => {
 
     comments.push({
         name: nameInputElement.value,
-       // data:
+        date:formatDateTime(),
         text: commentInputElement.value,
         likes: 0,
+        isLike: false,
     });
 
 
     renderComments();
-    initLikesListeners();
     initDeleteButtonsLisners();
   
 
@@ -121,12 +123,3 @@ buttonElement.addEventListener("click", () => {
 
 
 
-
-
-    // const sanitizeHtml = (htmlString) => {
-//   return htmlString
-//          .replaceAll("&", "&amp;")
-//          .replaceAll("<", "&lt;")
-//          .replaceAll(">", "&gt;")
-//          .replaceAll('"', "&quot;");
-// };
