@@ -102,14 +102,23 @@ buttonElement.addEventListener("click", () => {
     }
 
     comments.push({
-        name: nameInputElement.value,
+        name: nameInputElement.value
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;"),
         date:formatDateTime(),
-        text: commentInputElement.value,
+        text: commentInputElement.value
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;"),
         likes: 0,
         isLike: false,
     });
 
 
+    // sanitizeHtml();
     renderComments();
     initDeleteButtonsLisners();
   
@@ -119,7 +128,9 @@ buttonElement.addEventListener("click", () => {
 });
 
 
-
-
-
+//При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
+QUOTE_BEGIN ${comment.text} QUOTE_END
+//, а во время рендера заменить их на HTML: 
+comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
+  
 
