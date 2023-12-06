@@ -37,9 +37,9 @@ const comments = [
 const renderComments = () => {
     const commentsHtml = comments
         .map((comment, index) => {
-            return `<li class="comment" id="comment">
+            return `<li class="comment" data-text="${comment.text}" id="comment">
                 <div class="comment-header" >
-                    <div>${comment.name}</div>
+                    <div class="comment-name">${comment.name}</div>
                     <div>${comment.date}</div>
                 </div>
                 <div class="comment-body">
@@ -56,6 +56,14 @@ const renderComments = () => {
         }).join("");
     
     commentsElement.innerHTML = commentsHtml;
+
+    const commentsElements = document.querySelectorAll(".comment");
+    for (const comment of commentsElements) {
+        comment.addEventListener("click", () => {
+        const text = comment.dataset.text;
+        comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
+      })
+    };
   
     initLikesListeners();
     initDeleteButtonsLisners();
@@ -129,8 +137,8 @@ buttonElement.addEventListener("click", () => {
 
 
 //При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
-QUOTE_BEGIN ${comment.text} QUOTE_END
+//QUOTE_BEGIN ${comment.text} QUOTE_END
 //, а во время рендера заменить их на HTML: 
-comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
+//comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
   
 
