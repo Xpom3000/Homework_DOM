@@ -16,7 +16,7 @@ const formatDateTime = () => {
     const hours = String(currentDate.getHours()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
-
+// Массив данных пользователя
 const comments = [
     {
         name: "Глеб Фокин",
@@ -37,7 +37,7 @@ const comments = [
 const renderComments = () => {
     const commentsHtml = comments
         .map((comment, index) => {
-            return `<li class="comment" data-text="${comment.text}" id="comment">
+            return `<li class="comment" data-index="${index}" id="comment">
                 <div class="comment-header" >
                     <div class="comment-name">${comment.name}</div>
                     <div>${comment.date}</div>
@@ -56,15 +56,18 @@ const renderComments = () => {
         }).join("");
     
     commentsElement.innerHTML = commentsHtml;
-
-    const commentsElements = document.querySelectorAll(".comment");
-    for (const comment of commentsElements) {
+    
+    // кнопка Цитирования
+    const quoteElements = document.querySelectorAll(".comment");
+    for (const comment of quoteElements) {
         comment.addEventListener("click", () => {
-        const text = comment.dataset.text;
-        comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
-      })
+        const index = comment.dataset.index;
+            const comentText = comments[index].text;
+            const comentAuthor = comments[index].name;
+            commentInputElement.value = `>${comentText} ${comentAuthor}`;
+        })
     };
-  
+
     initLikesListeners();
     initDeleteButtonsLisners();
 };
@@ -125,12 +128,9 @@ buttonElement.addEventListener("click", () => {
         isLike: false,
     });
 
-
-    // sanitizeHtml();
     renderComments();
     initDeleteButtonsLisners();
   
-
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
