@@ -16,7 +16,6 @@ const formatDateTime = () => {
     const hours = String(currentDate.getHours()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
-
 // Массив данных пользователя
 // const comments = [
 //     {
@@ -89,7 +88,9 @@ const renderComments = () => {
         const index = comment.dataset.index;
             const comentText = comments[index].text;
             const comentAuthor = comments[index].name;
+
             commentInputElement.value = `>${comentAuthor} ${comentText} `;
+
         })
     };
 
@@ -136,7 +137,6 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.style.backgroundColor = "red";
     return;
     }
-
     // comments.push({
     //     name: nameInputElement.value
     //         .replaceAll("&", "&amp;")
@@ -189,13 +189,13 @@ buttonElement.addEventListener("click", () => {
         });
     });
 
-
     renderComments();
     initDeleteButtonsLisners();
   
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
+
 
 // КАК ПРИМЕНИТЬ ЭТО СВОЙСТВО???
 //При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
