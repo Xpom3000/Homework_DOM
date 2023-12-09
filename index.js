@@ -64,7 +64,7 @@ const renderComments = () => {
         const index = comment.dataset.index;
             const comentText = comments[index].text;
             const comentAuthor = comments[index].name;
-            commentInputElement.value = `>${comentText} ${comentAuthor}`;
+            commentInputElement.value = `>${comentAuthor} ${comentText}  `;
         })
     };
 
