@@ -55,6 +55,9 @@ body {
     justify-content: space-between;
     flex-direction: row;
   }
+  .comment-name {
+    word-break: break-all;
+  }
 
   .comment-body {
     margin-top: 32px;
@@ -63,6 +66,7 @@ body {
 
   .comment-text {
     font-size: 32px;
+    word-break: break-all;
   }
 
   .likes {

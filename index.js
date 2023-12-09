@@ -16,7 +16,7 @@ const formatDateTime = () => {
     const hours = String(currentDate.getHours()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
-
+// Массив данных пользователя
 const comments = [
     {
         name: "Глеб Фокин",
@@ -37,9 +37,9 @@ const comments = [
 const renderComments = () => {
     const commentsHtml = comments
         .map((comment, index) => {
-            return `<li class="comment" id="comment">
+            return `<li class="comment" data-index="${index}" id="comment">
                 <div class="comment-header" >
-                    <div>${comment.name}</div>
+                    <div class="comment-name">${comment.name}</div>
                     <div>${comment.date}</div>
                 </div>
                 <div class="comment-body">
@@ -56,7 +56,18 @@ const renderComments = () => {
         }).join("");
     
     commentsElement.innerHTML = commentsHtml;
-  
+    
+    // кнопка Цитирования
+    const quoteElements = document.querySelectorAll(".comment");
+    for (const comment of quoteElements) {
+        comment.addEventListener("click", () => {
+        const index = comment.dataset.index;
+            const comentText = comments[index].text;
+            const comentAuthor = comments[index].name;
+            commentInputElement.value = `>${comentAuthor} ${comentText}  `;
+        })
+    };
+
     initLikesListeners();
     initDeleteButtonsLisners();
 };
@@ -102,24 +113,32 @@ buttonElement.addEventListener("click", () => {
     }
 
     comments.push({
-        name: nameInputElement.value,
+        name: nameInputElement.value
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;"),
         date:formatDateTime(),
-        text: commentInputElement.value,
+        text: commentInputElement.value
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;"),
         likes: 0,
         isLike: false,
     });
 
-
     renderComments();
     initDeleteButtonsLisners();
   
-
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
 
 
-
-
-
+//При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
+//QUOTE_BEGIN ${comment.text} QUOTE_END
+//, а во время рендера заменить их на HTML: 
+//comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
+  
 
