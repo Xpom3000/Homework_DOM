@@ -60,8 +60,8 @@ fetchPromise.then((response) => {
 //Ркндер функция
 const renderComments = () => {
     const commentsHtml = comments
-        .map((comment, index) => {
-            return `<li class="comment" data-index="${index}" id="comment">
+        .map((comment) => {
+            return `<li class="comment"  id="comment">
                 <div class="comment-header" >
                     <div class="comment-name">${comment.name}</div>
                     <div>${comment.date}</div>
@@ -70,10 +70,10 @@ const renderComments = () => {
                     <div class="comment-text">${comment.text}</div>
                 </div>
                 <div class="comment-footer">
-                    <button id=delete-form-button class="delete-form-button" data-index="${index}">Удалить</button>
+                    <button id=delete-form-button class="delete-form-button" data-id="${comment.id}">Удалить</button>
                     <div class="likes">
                         <span class="likes-counter">${comment.likes}</span>
-                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-index="${index}"></button>
+                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-id="${comment.id}"></button>
                     </div>
                 </div>
              </li>`;
@@ -183,9 +183,6 @@ buttonElement.addEventListener("click", () => {
                     renderComments();
                 });
             });
-            // получили данные и рендерим их в приложении
-            comments = responseData.comments;
-            renderComments();
         });
     });
 
