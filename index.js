@@ -16,23 +16,7 @@ const formatDateTime = () => {
     const hours = String(currentDate.getHours()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
-// Массив данных пользователя
-// const comments = [
-//     {
-//         name: "Глеб Фокин",
-//         date: "13.02.22 19:22",
-//         text: "Мне нравится как оформлена эта страница! ❤",
-//         likes: 3,
-//         isLike: true,
-//     },
-//     {
-//         name: "Варвара Н",
-//         date: "12.02.22 12:18",
-//         text: "Это будет первый комментарий на этой странице",
-//         likes: 75,
-//         isLike: false,
-//     }
-// ];
+
 
 // Запрос двнных в API на комментарий
 let comments = [];
@@ -137,28 +121,22 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.style.backgroundColor = "red";
     return;
     }
-    // comments.push({
-    //     name: nameInputElement.value
-    //         .replaceAll("&", "&amp;")
-    //         .replaceAll("<", "&lt;")
-    //         .replaceAll(">", "&gt;")
-    //         .replaceAll('"', "&quot;"),
-    //     date:formatDateTime(),
-    //     text: commentInputElement.value
-    //         .replaceAll("&", "&amp;")
-    //         .replaceAll("<", "&lt;")
-    //         .replaceAll(">", "&gt;")
-    //         .replaceAll('"', "&quot;"),
-    //     likes: 0,
-    //     isLike: false,
-    // });
-
     // подписываемся на успешное завершение запроса с помощью then
     fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "POST",
         body: JSON.stringify({
-        name: nameInputElement.value,
-        text: commentInputElement.value,
+            name: nameInputElement.value
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
+            text: commentInputElement.value
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
+            likes: 0,
+            isLike: false,
         })
     }).then((response) => {
         response.json().then((responseData) => {
@@ -193,11 +171,4 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.value = "";    
 });
 
-
-// КАК ПРИМЕНИТЬ ЭТО СВОЙСТВО???
-//При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
-//QUOTE_BEGIN ${comment.text} QUOTE_END
-//, а во время рендера заменить их на HTML: 
-//comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
-  
 
