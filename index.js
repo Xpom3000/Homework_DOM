@@ -85,7 +85,6 @@ const renderComments = () => {
             const comentAuthor = comments[index].name;
 
             commentInputElement.value = `>${comentAuthor} ${comentText} `;
-
         })
     };
 
@@ -140,6 +139,7 @@ buttonElement.addEventListener("click", () => {
         body: JSON.stringify({
             name: nameInputElement.value,
             text: commentInputElement.value,
+
         })
     })   
     .then((response) => {
@@ -160,11 +160,4 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.value = "";    
 });
 
-
-// КАК ПРИМЕНИТЬ ЭТО СВОЙСТВО???
-//При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
-//QUOTE_BEGIN ${comment.text} QUOTE_END
-//, а во время рендера заменить их на HTML: 
-//comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
-  
 
