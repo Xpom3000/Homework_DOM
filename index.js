@@ -149,7 +149,7 @@ buttonElement.addEventListener("click", () => {
         return fetchAndRenderComments();
         // получили данные и рендерим их в приложении
     }).then((response) => {
-        addForm.innerHTML = oldAddForm;
+        addForm.innerHTML = oldAddForm, 
         addForm.classList.add("add-form");
     })
         
