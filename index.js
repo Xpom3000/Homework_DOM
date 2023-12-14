@@ -7,6 +7,7 @@ const commentsElement = document.getElementById("comments");
 const addForm = document.getElementById("add-form");
 const container = document.getElementById("add-container");
 const loaderElement = document.getElementById("loading");
+
 const formatDateTime = () => {
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
@@ -19,7 +20,7 @@ const formatDateTime = () => {
 // Запрос двнных в API на комментарий
 let comments = [];
 buttonElement.disabled = true;
-loaderElement.textContent = "Подождите пожалуйста, комментарии загружаются...";
+loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
 const fetchAndRenderComments = () => { 
     fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "GET"
@@ -121,6 +122,7 @@ const initDeleteButtonsLisners = () => {
 renderComments();
 
 //форма добавления  
+
 buttonElement.addEventListener("click", () => {
     nameInputElement.style.backgroundColor = "white" ;
     commentInputElement.style.backgroundColor = "white";
@@ -132,9 +134,11 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.style.backgroundColor = "red";
     return;
     }
-    const oldAddForm = addForm.innerHTML;
-    addForm.classList.remove("add-form");
-    addForm.textContent = "Комментарий добавляется...";
+    buttonElement.disabled = true;
+    buttonElement.textContent = "Комментарий добавляется...";
+    // const oldAddForm = addForm.innerHTML;
+    // addForm.classList.remove("add-form");
+    // addForm.textContent = "Комментарий добавляется...";
     fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "POST",
         body: JSON.stringify({
@@ -148,10 +152,14 @@ buttonElement.addEventListener("click", () => {
     .then((responseData) => {
         return fetchAndRenderComments();
         // получили данные и рендерим их в приложении
-    }).then((response) => {
-        addForm.innerHTML = oldAddForm, 
-        addForm.classList.add("add-form");
+    // }).then((response) => {
+    //     addForm.innerHTML = oldAddForm, 
+    //     addForm.classList.add("add-form"); 
     })
+    .then(() => {
+    //     buttonElement.disabled = false;
+        buttonElement.textContent = "Написать";
+      })
         
     renderComments();
     initDeleteButtonsLisners();
@@ -160,11 +168,5 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.value = "";    
 });
 
-
-// КАК ПРИМЕНИТЬ ЭТО СВОЙСТВО???
-//При подстановке текста в поле ввода можно разметить блок цитаты специальными словами типа 
-//QUOTE_BEGIN ${comment.text} QUOTE_END
-//, а во время рендера заменить их на HTML: 
-//comment.text.replaceAll("BEGIN_QUOTE", "<div class='quote'>")
   
 
