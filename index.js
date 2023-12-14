@@ -86,7 +86,6 @@ const renderComments = () => {
             const comentAuthor = comments[index].name;
 
             commentInputElement.value = `>${comentAuthor} ${comentText} `;
-
         })
     };
 
@@ -144,6 +143,7 @@ buttonElement.addEventListener("click", () => {
         body: JSON.stringify({
             name: nameInputElement.value,
             text: commentInputElement.value,
+
         })
     })   
     .then((response) => {
@@ -167,6 +167,4 @@ buttonElement.addEventListener("click", () => {
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
-
-  
 
