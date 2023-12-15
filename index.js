@@ -4,8 +4,9 @@ const nameInputElement = document.getElementById("name-input");
 const commentInputElement = document.getElementById("comment-input");
 const likeInputElement = document.getElementById("like-input");
 const commentsElement = document.getElementById("comments");
-const form = document.getElementById("add-form");
-const container = document.getElementById("add-container")
+const addForm = document.getElementById("add-form");
+const container = document.getElementById("add-container");
+const loaderElement = document.getElementById("loading");
 
 const formatDateTime = () => {
     const currentDate = new Date();
@@ -16,36 +17,47 @@ const formatDateTime = () => {
     const hours = String(currentDate.getHours()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
-
-
 // Запрос двнных в API на комментарий
 let comments = [];
-const fetchPromise = fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
-  method: "GET"
-});
-
-fetchPromise.then((response) => {
-    response.json().then((responseData) => {
-        const appComments = responseData.comments.map((comment) => {
-            return {
-                name: comment.author.name,
-                date: new Date(comment.date).toLocaleString(),
-                text: comment.text,
-                likes: comment.likes,
-                isLiked: false,
-            };
+buttonElement.disabled = true;
+loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
+const fetchAndRenderComments = () => { 
+    fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
+        method: "GET"
+    }).then((response) => {
+        response.json().then((responseData) => {
+            const appComments = responseData.comments.map((comment) => {
+                return {
+                    name: comment.author.name,
+                    date: formatDateTime(comment.date),
+                    text: comment.text,
+                    likes: comment.likes,
+                    isLiked: false,
+                };
+            });
+            comments = appComments;
+            renderComments();
+        }).then((response) => {
+            buttonElement.disabled = false;
+            loaderElement.textContent = "";
         });
-
-        comments = appComments;
-        renderComments();
     });
-});
+};
+fetchAndRenderComments();
+
+function delay(interval = 300) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, interval);
+    });
+}
 
 //Ркндер функция
 const renderComments = () => {
     const commentsHtml = comments
-        .map((comment) => {
-            return `<li class="comment"  id="comment">
+        .map((comment, index) => {
+            return `<li class="comment" data-index="${index}" id="comment">
                 <div class="comment-header" >
                     <div class="comment-name">${comment.name}</div>
                     <div>${comment.date}</div>
@@ -54,10 +66,10 @@ const renderComments = () => {
                     <div class="comment-text">${comment.text}</div>
                 </div>
                 <div class="comment-footer">
-                    <button id=delete-form-button class="delete-form-button" data-id="${comment.id}">Удалить</button>
+                    <button id=delete-form-button class="delete-form-button" data-index="${index}">Удалить</button>
                     <div class="likes">
                         <span class="likes-counter">${comment.likes}</span>
-                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-id="${comment.id}"></button>
+                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-index="${index}"></button>
                     </div>
                 </div>
              </li>`;
@@ -74,7 +86,6 @@ const renderComments = () => {
             const comentAuthor = comments[index].name;
 
             commentInputElement.value = `>${comentAuthor} ${comentText} `;
-
         })
     };
 
@@ -110,6 +121,7 @@ const initDeleteButtonsLisners = () => {
 renderComments();
 
 //форма добавления  
+
 buttonElement.addEventListener("click", () => {
     nameInputElement.style.backgroundColor = "white" ;
     commentInputElement.style.backgroundColor = "white";
@@ -121,54 +133,38 @@ buttonElement.addEventListener("click", () => {
     commentInputElement.style.backgroundColor = "red";
     return;
     }
-    // подписываемся на успешное завершение запроса с помощью then
+    buttonElement.disabled = true;
+    buttonElement.textContent = "Комментарий добавляется...";
+    // const oldAddForm = addForm.innerHTML;
+    // addForm.classList.remove("add-form");
+    // addForm.textContent = "Комментарий добавляется...";
     fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "POST",
         body: JSON.stringify({
-            name: nameInputElement.value
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;"),
-            text: commentInputElement.value
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;"),
-            likes: 0,
-            isLike: false,
+            name: nameInputElement.value,
+            text: commentInputElement.value,
+
         })
-    }).then((response) => {
-        response.json().then((responseData) => {
-
-            const fetchPromise = fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
-            method: "GET"
-            });
-            // Запрос двнных в API на комментарий
-            fetchPromise.then((response) => {
-                response.json().then((responseData) => {
-                    const appComments = responseData.comments.map((comment) => {
-                        return {
-                            name: comment.author.name,
-                            date: new Date(comment.date).toLocaleString(),
-                            text: comment.text,
-                            likes: comment.likes,
-                            isLiked: false,
-                        };
-                    });
-
-                    comments = appComments;
-                    renderComments();
-                });
-            });
-        });
-    });
-
+    })   
+    .then((response) => {
+        return response.json();
+    })
+    .then((responseData) => {
+        return fetchAndRenderComments();
+        // получили данные и рендерим их в приложении
+    // }).then((response) => {
+    //     addForm.innerHTML = oldAddForm, 
+    //     addForm.classList.add("add-form"); 
+    })
+    .then(() => {
+    //     buttonElement.disabled = false;
+        buttonElement.textContent = "Написать";
+      })
+        
     renderComments();
     initDeleteButtonsLisners();
   
     nameInputElement.value = "";
     commentInputElement.value = "";    
 });
-
 
