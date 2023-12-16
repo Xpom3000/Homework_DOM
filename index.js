@@ -138,33 +138,56 @@ buttonElement.addEventListener("click", () => {
     // const oldAddForm = addForm.innerHTML;
     // addForm.classList.remove("add-form");
     // addForm.textContent = "Комментарий добавляется...";
-    fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
-        method: "POST",
-        body: JSON.stringify({
-            name: nameInputElement.value,
-            text: commentInputElement.value,
-
+    
+    const handlePostClick = () => {
+        fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
+            method: "POST",
+            body: JSON.stringify({
+                name: nameInputElement.value,
+                text: commentInputElement.value,
+                forceError: true,
+            })
         })
-    })   
-    .then((response) => {
-        return response.json();
-    })
-    .then((responseData) => {
-        return fetchAndRenderComments();
-        // получили данные и рендерим их в приложении
-    // }).then((response) => {
-    //     addForm.innerHTML = oldAddForm, 
-    //     addForm.classList.add("add-form"); 
-    })
-    .then(() => {
-    //     buttonElement.disabled = false;
-        buttonElement.textContent = "Написать";
-      })
-        
+        .then((response) => {
+            console.log(response);
+            // if (response.status === 201) {
+            //   return response.json();
+        // }
+            if (response.status === 400) {
+                throw new Error("Неверный запрос"); 
+            //   return Promise.reject(new Error("Неверный запрос"));
+            }if (response.status === 500) {
+              throw new Error("Сервер упал");
+            //   return Promise.reject(new Error("Сервер упал"));
+            }
+          })
+        .then((responseData) => {
+            return fetchAndRenderComments();
+        })
+        .then(() => {
+            buttonElement.disabled = false;
+            buttonElement.textContent = "Написать";
+            nameInputElement.value = "";
+            commentInputElement.value = ""; 
+        })
+        .catch((error) => {
+            buttonElement.disabled = false;
+            buttonElement.textContent = "Написать";
+            if (error.message === "Неверный запрос") {
+              alert("Имя и комментарий должны быть не короче 3 символов")
+            } if (error.message === "Сервер упал") {
+              alert("Кажется, что-то пошло не так, попробуй позже")
+            }  
+            // TODO: Отправлять в систему сбора ошибок
+            console.warn(error);
+            //  Пробуем снова, если сервер сломался
+            handlePostClick();
+        });
+    };       
+    handlePostClick();
     renderComments();
     initDeleteButtonsLisners();
   
-    nameInputElement.value = "";
-    commentInputElement.value = "";    
+      
 });
 

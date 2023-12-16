@@ -18,7 +18,7 @@ const buttonElement = document.getElementById("add-button");
     };
 
     const renderTasks = () => {
-        const tasksHtml = tasks
+      const tasksHtml = tasks
         .map((task) => {
           return `
           <li class="task">
@@ -29,7 +29,7 @@ const buttonElement = document.getElementById("add-button");
           </li>`;
         })
         .join("");
-      
+
       listElement.innerHTML = tasksHtml;
       const deleteButtons = document.querySelectorAll(".delete-button");
 
@@ -64,48 +64,37 @@ const buttonElement = document.getElementById("add-button");
 
       buttonElement.disabled = true;
       buttonElement.textContent = "Элемент добавлятся...";
-      // Пример, код выше, переписанный на цепочку промисов:
-      fetch("https://webdev-hw-api.vercel.app/api/todos", {
+      fetch("https://webdev-hw-api.vercel.app/api/todos/with-error", {
         method: "POST",
         body: JSON.stringify({
           text: textInputElement.value,
         }),
       })
-      .catch((error) => {
+        .then((response) => {
+          console.log(response);
+          if (response.status === 201) {
+            return response.json();
+          } else {
+            // Код, который обработает ошибку
+            // throw new Error("Сервер упал");
+            return Promise.reject(new Error("Сервер упал"));
+          }
+        })
+        .then(() => {
+          return fetchAndRenderTasks();
+        })
+        .then(() => {
+          buttonElement.disabled = false;
+          buttonElement.textContent = "Добавить";
+          textInputElement.value = "";
+        })
+        .catch((error) => {
           buttonElement.disabled = false;
           buttonElement.textContent = "Добавить";
           alert("Кажется, что-то пошло не так, попробуй позже");
           // TODO: Отправлять в систему сбора ошибок
           console.warn(error);
-          return "Глеб";
-        })
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => {
-          buttonElement.disabled = false;
-          buttonElement.textContent = "Добавить";
-          alert("Кажется, что-то пошло не так, попробуй позже");
-          // TODO: Отправлять в систему сбора ошибок
-          console.warn(error);
-          return "Глеб";
-        })
-      .then(() => {
-        return fetchAndRenderTasks();
-      })
-      .then(() => {
-        buttonElement.disabled = false;
-        buttonElement.textContent = "Добавить";
-        textInputElement.value = "";
-      })
-      .catch((error) => {
-        buttonElement.disabled = false;
-        buttonElement.textContent = "Добавить";
-        alert("Кажется, что-то пошло не так, попробуй позже");
-        // TODO: Отправлять в систему сбора ошибок
-        console.warn(error);
-        return "Глеб";
-      });
+        });
 
       renderTasks();
     });
