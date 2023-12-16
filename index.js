@@ -51,7 +51,7 @@ function delay(interval = 300) {
         resolve();
       }, interval);
     });
-}
+};
 
 //Ркндер функция
 const renderComments = () => {
@@ -150,9 +150,9 @@ buttonElement.addEventListener("click", () => {
         })
         .then((response) => {
             console.log(response);
-            // if (response.status === 201) {
-            //   return response.json();
-        // }
+            if (response.status === 201) {
+               return response.json();
+            }
             if (response.status === 400) {
                 throw new Error("Неверный запрос"); 
             //   return Promise.reject(new Error("Неверный запрос"));
@@ -176,12 +176,13 @@ buttonElement.addEventListener("click", () => {
             if (error.message === "Неверный запрос") {
               alert("Имя и комментарий должны быть не короче 3 символов")
             } if (error.message === "Сервер упал") {
-              alert("Кажется, что-то пошло не так, попробуй позже")
+                alert("Кажется, что-то пошло не так, попробуй позже")
+                handlePostClick();
             }  
             // TODO: Отправлять в систему сбора ошибок
             console.warn(error);
             //  Пробуем снова, если сервер сломался
-            handlePostClick();
+            
         });
     };       
     handlePostClick();
