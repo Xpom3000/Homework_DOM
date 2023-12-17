@@ -1,4 +1,5 @@
 //use strict";
+import {getComments, postComment} from './module.js'
 const buttonElement = document.getElementById("add-button");
 const nameInputElement = document.getElementById("name-input");
 const commentInputElement = document.getElementById("comment-input");
@@ -22,25 +23,22 @@ let comments = [];
 buttonElement.disabled = true;
 loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
 const fetchAndRenderComments = () => { 
-    fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
-        method: "GET"
-    }).then((response) => {
-        response.json().then((responseData) => {
-            const appComments = responseData.comments.map((comment) => {
-                return {
-                    name: comment.author.name,
-                    date: formatDateTime(comment.date),
-                    text: comment.text,
-                    likes: comment.likes,
-                    isLiked: false,
-                };
-            });
-            comments = appComments;
-            renderComments();
-        }).then((response) => {
-            buttonElement.disabled = false;
-            loaderElement.textContent = "";
+    getComments()
+    .then((responseData) => {
+        const appComments = responseData.comments.map((comment) => {
+            return {
+                name: comment.author.name,
+                date: formatDateTime(comment.date),
+                text: comment.text,
+                likes: comment.likes,
+                isLiked: false,
+            };
         });
+        comments = appComments;
+        renderComments();
+    }).then((response) => {
+        buttonElement.disabled = false;
+        loaderElement.textContent = "";
     });
 };
 fetchAndRenderComments();
@@ -121,7 +119,6 @@ const initDeleteButtonsLisners = () => {
 renderComments();
 
 //форма добавления  
-
 buttonElement.addEventListener("click", () => {
     nameInputElement.style.backgroundColor = "white" ;
     commentInputElement.style.backgroundColor = "white";
@@ -135,32 +132,20 @@ buttonElement.addEventListener("click", () => {
     }
     buttonElement.disabled = true;
     buttonElement.textContent = "Комментарий добавляется...";
-    // const oldAddForm = addForm.innerHTML;
-    // addForm.classList.remove("add-form");
-    // addForm.textContent = "Комментарий добавляется...";
     
     const handlePostClick = () => {
-        fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
-            method: "POST",
-            body: JSON.stringify({
-                name: nameInputElement.value,
-                text: commentInputElement.value,
-                forceError: true,
-            })
-        })
+        postComment()
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.status === 201) {
                return response.json();
             }
             if (response.status === 400) {
                 throw new Error("Неверный запрос"); 
-            //   return Promise.reject(new Error("Неверный запрос"));
-            }if (response.status === 500) {
+            } if (response.status === 500) {
               throw new Error("Сервер упал");
-            //   return Promise.reject(new Error("Сервер упал"));
             }
-          })
+        })
         .then((responseData) => {
             return fetchAndRenderComments();
         })
@@ -179,16 +164,11 @@ buttonElement.addEventListener("click", () => {
                 alert("Кажется, что-то пошло не так, попробуй позже")
                 handlePostClick();
             }  
-            // TODO: Отправлять в систему сбора ошибок
             console.warn(error);
-            //  Пробуем снова, если сервер сломался
-            
-        });
+        })
     };       
     handlePostClick();
     renderComments();
     initDeleteButtonsLisners();
-  
-      
 });
 
