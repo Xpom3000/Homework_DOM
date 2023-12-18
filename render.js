@@ -1,9 +1,9 @@
 import { getComments } from './api.js'
 import { formatDateTime } from './date.js';
-import { initLikesListeners } from './likes.js';
-import { initDeleteButtonsLisners } from './delete.js';
-// import { initLikesListeners } from './index.js';
-// import { initDeleteButtonsLisners } from './index.js';
+// import { initLikesListeners } from './likes.js';
+// import { initDeleteButtonsLisners } from './delete.js';
+import { initLikesListeners } from './index.js';
+import { initDeleteButtonsLisners } from './index.js';
 
 const commentsElement = document.getElementById("comments");
 const buttonElement = document.getElementById("add-button");

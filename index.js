@@ -40,34 +40,34 @@ fetchAndRenderComments(comments);
 //Кнопка лайков
 //likes.js
 
-// export const initLikesListeners = (comments) => {
-//     for (const commentElement of document.querySelectorAll(".like-button")) {
-//         // Добавляет обработчик клика на конкретный элемент в списке
-//         commentElement.addEventListener("click", (event) => {
-//             event.stopPropagation();
-//             const index = commentElement.dataset.index;
-//             comments[index].likes += comments[index].isLike ? -1 : +1;
-//             comments[index].isLike = !comments[index].isLike;
-//             renderComments(comments);
-//         }); 
-//     };
+export const initLikesListeners = (comments) => {
+    for (const commentElement of document.querySelectorAll(".like-button")) {
+        // Добавляет обработчик клика на конкретный элемент в списке
+        commentElement.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const index = commentElement.dataset.index;
+            comments[index].likes += comments[index].isLike ? -1 : +1;
+            comments[index].isLike = !comments[index].isLike;
+            renderComments(comments);
+        }); 
+    };
     
-// };
+};
 
 //Кнопка удаления
 //delete.js
-// export const initDeleteButtonsLisners = (comments) => {
-//     const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
-//     for (const deleteButtonsElement of deleteButtonsElements) {
-//         deleteButtonsElement.addEventListener("click", (event) => {
-//             event.stopPropagation();
-//             const index = deleteButtonsElement.dataset.index;
-//             comments.splice(index, 1);
-//             renderComments(comments);
-//         });
-//     }; 
-// };
-// renderComments(comments);
+export const initDeleteButtonsLisners = (comments) => {
+    const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
+    for (const deleteButtonsElement of deleteButtonsElements) {
+        deleteButtonsElement.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const index = deleteButtonsElement.dataset.index;
+            comments.splice(index, 1);
+            renderComments(comments);
+        });
+    }; 
+};
+renderComments(comments);
 
 //форма добавления  
 buttonElement.addEventListener("click", () => {
