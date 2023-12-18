@@ -160,6 +160,7 @@ buttonElement.addEventListener("click", () => {
               throw new Error("Сервер упал");
             //   return Promise.reject(new Error("Сервер упал"));
             }
+
           })
         .then((responseData) => {
             return fetchAndRenderComments();
@@ -174,15 +175,17 @@ buttonElement.addEventListener("click", () => {
             buttonElement.disabled = false;
             buttonElement.textContent = "Написать";
             if (error.message === "Неверный запрос") {
-              alert("Имя и комментарий должны быть не короче 3 символов")
-            } if (error.message === "Сервер упал") {
-                alert("Кажется, что-то пошло не так, попробуй позже")
-                handlePostClick();
-            }  
+                alert("Имя и комментарий должны быть не короче 3 символов");
+            }else if (error.message === "Сервер упал") {
+                alert("Кажется, что-то пошло не так, попробуй позже");
+                // handlePostClick();
+            } if (error.message === 'Failed to fetch') {
+                alert("Кажется,сломался интернет, попробуй позже");
+            }
             // TODO: Отправлять в систему сбора ошибок
             console.warn(error);
             //  Пробуем снова, если сервер сломался
-            
+            handlePostClick();
         });
     };       
     handlePostClick();
