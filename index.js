@@ -2,14 +2,12 @@
 import { postComment } from './api.js'
 import { fetchAndRenderComments } from './render.js';
 import { renderComments } from './render.js';
-// import { initDeleteButtonsLisners } from './delete.js';
+import { initDeleteButtonsLisners } from './delete.js';
+
 const buttonElement = document.getElementById("add-button");
 const nameInputElement = document.getElementById("name-input");
 const commentInputElement = document.getElementById("comment-input");
-const addForm = document.getElementById("add-form");
-const container = document.getElementById("add-container");
 const loaderElement = document.getElementById("loading");
-
 
 // Запрос двнных в API на комментарий
 let comments = [];
@@ -39,36 +37,8 @@ fetchAndRenderComments(comments);
 //render.js
 //Кнопка лайков
 //likes.js
-
-export const initLikesListeners = (comments) => {
-    for (const commentElement of document.querySelectorAll(".like-button")) {
-        // Добавляет обработчик клика на конкретный элемент в списке
-        commentElement.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const index = commentElement.dataset.index;
-            comments[index].likes += comments[index].isLike ? -1 : +1;
-            comments[index].isLike = !comments[index].isLike;
-            renderComments(comments);
-        }); 
-    };
-    
-};
-
 //Кнопка удаления
 //delete.js
-export const initDeleteButtonsLisners = (comments) => {
-    const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
-    for (const deleteButtonsElement of deleteButtonsElements) {
-        deleteButtonsElement.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const index = deleteButtonsElement.dataset.index;
-            comments.splice(index, 1);
-            renderComments(comments);
-        });
-    }; 
-};
-renderComments(comments);
-
 //форма добавления  
 buttonElement.addEventListener("click", () => {
     nameInputElement.style.backgroundColor = "white" ;

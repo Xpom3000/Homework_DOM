@@ -1,4 +1,4 @@
-
+import { renderComments } from "./render.js";
 export const initLikesListeners = (comments) => {
     for (const commentElement of document.querySelectorAll(".like-button")) {
         // Добавляет обработчик клика на конкретный элемент в списке

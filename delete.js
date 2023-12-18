@@ -1,4 +1,4 @@
-const commentsElement = document.getElementById("comments");
+import { renderComments } from "./render.js";
 export const initDeleteButtonsLisners = (comments) => {
     const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
     for (const deleteButtonsElement of deleteButtonsElements) {

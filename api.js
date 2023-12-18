@@ -1,4 +1,3 @@
-
 export function getComments() {
     return fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "GET"
