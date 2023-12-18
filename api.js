@@ -1,18 +1,18 @@
-// import{formatDateTime} from './index.js'
+
 export function getComments() {
     return fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "GET"
     }).then((response) => {
-        response.json()
+       return response.json()
     });
     
 };
-export function postComment() {
-    fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
+export function postComment(name, text) {
+    return fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
         method: "POST",
         body: JSON.stringify({
-            name: nameInputElement.value,
-            text: commentInputElement.value,
+            name: name,
+            text: text,
             forceError: true,
         })
     })
