@@ -12,9 +12,17 @@ export const fetchAndRenderComments = (comments) => {
     .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
             return {
-                name: comment.author.name,
+                name: comment.author.name
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
                 date: formatDateTime(comment.date),
-                text: comment.text,
+                text: comment.text
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
                 likes: comment.likes,
                 isLiked: false,
             };

@@ -13,25 +13,6 @@ const loaderElement = document.getElementById("loading");
 let comments = [];
 buttonElement.disabled = true;
 loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
-// const fetchAndRenderComments = () => { 
-//     getComments()
-//     .then((responseData) => {
-//         const appComments = responseData.comments.map((comment) => {
-//             return {
-//                 name: comment.author.name,
-//                 date: formatDateTime(comment.date),
-//                 text: comment.text,
-//                 likes: comment.likes,
-//                 isLiked: false,
-//             };
-//         });
-//         comments = appComments;
-//         renderComments();
-//     }).then((response) => {
-//         buttonElement.disabled = false;
-//         loaderElement.textContent = "";
-//     });
-// };
 fetchAndRenderComments(comments);
 //Ркндер функция
 //render.js
