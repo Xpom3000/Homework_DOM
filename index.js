@@ -87,7 +87,9 @@ buttonElement.addEventListener("click", () => {
             } if (error.message === "Сервер упал") {
                 alert("Кажется, что-то пошло не так, попробуй позже")
                 handlePostClick();
-            }  
+            } if (error.message === 'Failed to fetch') {
+                alert("Кажется,сломался интернет, попробуй позже");
+            }
             console.warn(error);
         })
     };       
