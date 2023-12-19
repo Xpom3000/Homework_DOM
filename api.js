@@ -1,5 +1,6 @@
+const host = "https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments"
 export function getComments() {
-    return fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
+    return fetch(host, {
         method: "GET"
     }).then((response) => {
        return response.json()
@@ -7,7 +8,7 @@ export function getComments() {
     
 };
 export function postComment(name, text) {
-    return fetch("https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments", {
+    return fetch(host, {
         method: "POST",
         body: JSON.stringify({
             name: name,
