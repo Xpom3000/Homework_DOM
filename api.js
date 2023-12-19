@@ -12,7 +12,7 @@ export function postComment(name, text) {
         body: JSON.stringify({
             name: name,
             text: text,
-            forceError: true,
+            forceError: false,
         })
     })
 }
