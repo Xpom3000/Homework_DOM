@@ -1,8 +1,9 @@
 //use strict";
-import { postComment } from './api.js'
+import { login, postComment } from './api.js'
 import { fetchAndRenderComments } from './render.js';
 import { renderComments } from './render.js';
 import { initDeleteButtonsLisners } from './delete.js';
+import { renderLogin } from './renderLogin.js';
 
 const buttonElement = document.getElementById("add-button");
 const nameInputElement = document.getElementById("name-input");
@@ -13,7 +14,8 @@ const loaderElement = document.getElementById("loading");
 let comments = [];
 buttonElement.disabled = true;
 loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
-fetchAndRenderComments(comments);
+// fetchAndRenderComments(comments);
+renderLogin()
 //Ркндер функция
 //render.js
 //Кнопка лайков
