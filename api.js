@@ -1,4 +1,4 @@
-const commentsUrl = "https://wedev-api.sky.pro/api/v1/:igror-shipitko/comments";
+const commentsUrl = "https://wedev-api.sky.pro/api/v2/:igror-shipitko/comments";
 const userUrL = "https://wedev-api.sky.pro/api/user/login";
 
 export let token;
