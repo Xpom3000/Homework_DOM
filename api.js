@@ -33,6 +33,17 @@ export function postComment(name, text) {
      }); 
 };
 
+export function deleteComment({id}) {
+    return fetch(`${commentsUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorizetion: `Bearer ${token}`,
+        }
+    }).then((response) => {
+       return response.json()
+    }); 
+};
+
 export function login({login, password }) {
     return fetch(userUrL, {
         method: "POST",
@@ -44,4 +55,5 @@ export function login({login, password }) {
     }).then((response) => {
         return response.json()
      }); 
-}
+};
+

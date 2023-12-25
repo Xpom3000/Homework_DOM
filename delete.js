@@ -1,12 +1,17 @@
-import { renderComments } from "./render.js";
-export const initDeleteButtonsLisners = (comments) => {
-    const deleteButtonsElements = document.querySelectorAll(".delete-form-button");
-    for (const deleteButtonsElement of deleteButtonsElements) {
-        deleteButtonsElement.addEventListener("click", (event) => {
+// import { renderComments } from "./render.js";
+import { deleteComment } from "./api.js";
+import { fetchAndRenderComments } from "./index.js";
+export const initDeleteButtonLisners = (comments) => {
+    const deleteButtonElements = document.querySelectorAll(".delete-form-button");
+    for (const deleteButtonElement of deleteButtonElements) {
+        deleteButtonElement.addEventListener("click", (event) => {
             event.stopPropagation();
-            const index = deleteButtonsElement.dataset.index;
-            comments.splice(index, 1);
-            renderComments(comments);
+            const id = deleteButtonElement.dataset.id;
+                
+            deleteComment({id}).then(() => {
+                fetchAndRenderComments(comments);
+            })
+            
         });
-    }; 
+    };
 };
