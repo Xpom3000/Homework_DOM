@@ -2,7 +2,8 @@
 import { initLikesListeners } from './likes.js';
 import { initDeleteButtonLisners } from './delete.js';
 import { postComment } from './api.js'
-import { fetchAndRenderComments } from './index.js';
+import { fetchAndRenderComments, user} from './index.js';
+import { renderLogin } from './renderLogin.js';
 
 export const renderComments = (comments) => {
     const appElement = document.getElementById("app")
@@ -28,19 +29,22 @@ export const renderComments = (comments) => {
     const appHtml = `
     <div class="container" id="add-container">
       <ul class="comments" id="comments" >${commentsHtml}</ul>
+      ${user? `
       <div id="loading"></div>
       <div class="add-form" id="add-form">
-        <input type="text" class="add-form-name" placeholder="Введите ваше имя" id="name-input"/>
+        <input type="text" class="add-form-name" placeholder="Введите ваше имя" value="${user?.name}" readly id="name-input"/>
         <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4" id="comment-input"></textarea>
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
-          <a class="add-form-authorize" href="login.html" id="link-to-login">Авторизоваться</a>
+          
         </div>
-      </div>
+      </div>`: '<button class="login-form-button" id="login-button">Войти</button>'}
+
+      
     </div>`;
     
     appElement.innerHTML = appHtml;
-    
+    // renderLogin();
     // кнопка Цитирования
     const quoteElements = document.querySelectorAll(".comment");
     for (const comment of quoteElements) {
@@ -61,6 +65,7 @@ export const renderComments = (comments) => {
     const commentInputElement = document.getElementById("comment-input");
     const loaderElement = document.getElementById("loading");
     
+   
     // buttonElement.disabled = true;
     // loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
     buttonElement.addEventListener("click", () => {

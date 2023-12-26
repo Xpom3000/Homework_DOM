@@ -7,7 +7,10 @@ import { renderComments } from './render.js';
 
 // Запрос двнных в API на комментарий
 let comments = [];
-
+export let user = null;
+export const setUser = (newUser) => {
+    user = newUser;
+};
 export const fetchAndRenderComments = (comments) => { 
     getComments()
     .then((responseData) => {
@@ -29,8 +32,8 @@ export const fetchAndRenderComments = (comments) => {
 };
 // buttonElement.disabled = true;
 // loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
-// fetchAndRenderComments(comments);
-renderLogin()
+fetchAndRenderComments(comments);
+// renderLogin()
 //Ркндер функция
 //render.js
 //Кнопка лайков
@@ -38,4 +41,5 @@ renderLogin()
 //Кнопка удаления
 //delete.js
 //форма добавления  
+
 

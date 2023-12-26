@@ -24,25 +24,30 @@ export const renderLogin = () => {
     </div>`;
   appElement.innerHTML = loginHtml;
 
-const buttonElement = document.getElementById('add-button');
-const loginInputElement = document.getElementById('login-input');
-const passwordInputElement = document.getElementById('password-input');
+  const buttonElement = document.getElementById('add-button');
+  const loginInputElement = document.getElementById('login-input');
+  const passwordInputElement = document.getElementById('password-input');
+  const loginButtonElement = document.getElementById('login-button')
 
-buttonElement.addEventListener("click", () => {
-  if (!loginInputElement.value || !passwordInputElement.value) {
-    alert("Вы не ввели логин или пороль");
-    return;
-  }
-  login({
-    login: loginInputElement.value,
-    password: passwordInputElement.value,
-  }).then((responseData) => {
-    // console.log(token);
-    setToken(responseData.user.token);
-    console.log(responseData.user.token);
-  }).then(() => {
-    fetchAndRenderComments(comments);
+  loginButtonElement.addEventListener("click", () => {
+    buttonElement.addEventListener("click", () => {
+      if (!loginInputElement.value || !passwordInputElement.value) {
+        alert("Вы не ввели логин или пороль");
+        return;
+      }
+      login({
+        login: loginInputElement.value,
+        password: passwordInputElement.value,
+      }).then((responseData) => {
+        // console.log(token);
+        setToken(responseData.user.token);
+        console.log(responseData.user.token);
+      }).then(() => {
+        fetchAndRenderComments(comments);
+      })
+    });
+
   })
-});
+  renderLogin();
 };
 
