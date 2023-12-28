@@ -3,7 +3,6 @@ import { initLikesListeners } from './likes.js';
 import { initDeleteButtonLisners } from './delete.js';
 import { postComment } from './api.js'
 import { fetchAndRenderComments, user} from './index.js';
-// import { intitLoginButtonElement } from './renderLogin.js';
 
 export const renderComments = (comments) => {
     console.log(comments);
@@ -38,13 +37,10 @@ export const renderComments = (comments) => {
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
         </div>
-      </div>` :'<button class="login-form-button" id="login-button">Войти</button>'}
+      </div>` :'<button class="login-button" id="login-button">Авторизоваться</button>'}
 
     </div>`;
-    // renderLogin();
     appElement.innerHTML = appHtml;
-    // intitLoginButtonElement()
-    // renderLogin();
     // кнопка Цитирования
     const quoteElements = document.querySelectorAll(".comment");
     for (const comment of quoteElements) {
@@ -59,16 +55,12 @@ export const renderComments = (comments) => {
     initLikesListeners(comments);
     initDeleteButtonLisners(comments);
 
-    // renderLogin();
     if (user) {
         const buttonElement = document.getElementById("add-button");
         const nameInputElement = document.getElementById("name-input");
         const commentInputElement = document.getElementById("comment-input");
         const loaderElement = document.getElementById("loading");
-     
-        // buttonElement.disabled = true;
-        // loaderElement.innerHTML = "Подождите пожалуйста, комментарии загружаются...";
-        console.log(buttonElement)
+
         buttonElement.addEventListener("click", () => {
             console.log(nameInputElement);
             nameInputElement.style.backgroundColor = "white" ;
@@ -128,29 +120,9 @@ export const renderComments = (comments) => {
             renderComments(comments);
             
         });
-        
     }
     const loginButtonElement = document.getElementById('login-button')
-     loginButtonElement.addEventListener("click", () => {
-    console.log("ИГорь")
-   
-    //   if (!loginInputElement.value || !passwordInputElement.value) {
-    //     alert("Вы не ввели логин или пороль");
-    //     return;
-    //   }
-    //   login({
-    //     login: sanitizeHtml(loginInputElement.value),
-    //     password: passwordInputElement.value,
-    //   }).then((responseData) => {
-    //     // console.log(token);
-    //     setToken(responseData.user.token);
-    //     console.log(responseData.user.token);
-    //   }).then(() => {
-    //     fetchAndRenderComments(comments);
-    //   })
-      renderLogin();
+        loginButtonElement.addEventListener("click", () => {   
+        renderLogin();
     });
-
- 
-
 };

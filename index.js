@@ -1,9 +1,8 @@
 //use strict";
 import { getComments } from './api.js'
-import { renderLogin } from './renderLogin.js';
+// import { renderLogin } from './renderLogin.js';
 import { formatDateTime } from './date.js';
 import { renderComments } from './render.js';
-
 
 // Запрос двнных в API на комментарий
 let comments = [];

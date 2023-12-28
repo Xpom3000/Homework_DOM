@@ -188,6 +188,17 @@ body {
     opacity: 0.9;
   }
 
+  .login-button {
+    margin-top: 24px;
+    font-size: 24px;
+    /* padding: 10px 20px; */
+    color: #ffffff;
+    background-color: #202020;
+    border: none;
+    /* border-radius: 18px; */
+    cursor: pointer;
+  }
+
   .link-form-button {
     margin-top: 24px;
     font-size: 24px;
