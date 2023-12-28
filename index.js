@@ -16,6 +16,7 @@ export const fetchAndRenderComments = (comments) => {
     .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
             return {
+                id: comment.id,
                 name: comment.author.name,
                 date: formatDateTime(comment.date),
                 text: comment.text,

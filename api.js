@@ -1,16 +1,18 @@
 const commentsUrl = "https://wedev-api.sky.pro/api/v2/:igror-shipitko/comments";
 const userUrL = "https://wedev-api.sky.pro/api/user/login";
+const newUserUrl = "https://wedev-api.sky.pro/api/user"
 
 export let token;
 export const setToken = (newToken) => {
     token = newToken;
+
 } 
 
 export function getComments() {
     return fetch(commentsUrl, {
         method: "GET",
         headers: {
-            Authorizetion: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         }
     }).then((response) => {
        return response.json()
@@ -21,7 +23,7 @@ export function postComment(name, text) {
     return fetch(commentsUrl, {
         method: "POST",
         headers: {
-            Authorizetion: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
             name: name,
@@ -37,7 +39,7 @@ export function deleteComment({id}) {
     return fetch(`${commentsUrl}/${id}`, {
         method: "DELETE",
         headers: {
-            Authorizetion: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         }
     }).then((response) => {
        return response.json()
@@ -57,3 +59,16 @@ export function login({login, password }) {
      }); 
 };
 
+export function registration({login, name, password }) {
+    return fetch(newUserUrl, {
+        method: "POST",
+        body: JSON.stringify({
+            login,
+            name,
+           password,
+            // forceError: true,
+        })
+    }).then((response) => {
+        return response.json()
+     }); 
+};

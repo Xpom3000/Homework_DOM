@@ -6,8 +6,8 @@ export const initDeleteButtonLisners = (comments) => {
     for (const deleteButtonElement of deleteButtonElements) {
         deleteButtonElement.addEventListener("click", (event) => {
             event.stopPropagation();
-            const id = deleteButtonElement.dataset.id;
-                
+            const id = "658645b144d51ee088e0e950";
+            console.log({id});  
             deleteComment({id}).then(() => {
                 fetchAndRenderComments(comments);
             })

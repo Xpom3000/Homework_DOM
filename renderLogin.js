@@ -16,21 +16,22 @@ export const renderLogin = () => {
         <input type="text" class="add-form-login" placeholder="Логин" id="login-input"/>
         <input type="text" class="add-form-password" placeholder="Пороль" rows="4" id="password-input"/>
         <div class="login-form-row">
-          <button class="login-form-button" id="add-button">Войти</button>
+          <!--<button class="login-form-button" id="add-button">Войти</button>-->
           <!--<button class="link-form-button"  id="link-to-login">Зарегистрироваться</button>-->
-          <a class="add-form-authorize" href="index.html" id="link-to-login">Авторизоваться</a>
+          <button class="login-form-button" id="login-button">Войти</button>
         </div>
       </div>
     </div>`;
   appElement.innerHTML = loginHtml;
 
-  const buttonElement = document.getElementById('add-button');
   const loginInputElement = document.getElementById('login-input');
   const passwordInputElement = document.getElementById('password-input');
   const loginButtonElement = document.getElementById('login-button')
-
+  // console.log(loginButtonElement)
+  
   loginButtonElement.addEventListener("click", () => {
-    buttonElement.addEventListener("click", () => {
+    // console.log("ИГорь")
+   
       if (!loginInputElement.value || !passwordInputElement.value) {
         alert("Вы не ввели логин или пороль");
         return;
@@ -47,7 +48,37 @@ export const renderLogin = () => {
       })
     });
 
-  })
   renderLogin();
 };
 
+
+// const loginButtonElement = document.getElementById("login-button");
+// const loginInputElement = document.getElementById("login-input");
+// const passwordInputElement = document.getElementById("password-input");
+// export const intitLoginButtonElement = () => {
+//   console.log(loginButtonElement);
+//   loginButtonElement.addEventListener("click", () => {
+//     if (!loginInputElement.value || !passwordInputElement) {
+//       alert("Вы не ввели логин или пороль");
+//       return;
+//     }
+//     buttonElement.disabled = true;
+//     buttonElement.textContent = "Комментарий добавляется...";
+//     login({
+//       login: loginInputElement.value,
+//       password: passwordInputElement.value,
+//     })
+//       .then((responseData) => {
+//         setToken(responseData.user.token);
+//         console.log(token);
+//         setUser(responseData.user)
+//       })
+//       .then(() => {
+//         fetchAndRenderComments(comments);
+//       })
+//       .then(() => {
+//         intitLoginButtonElement()
+//       });
+//   });
+  
+// }
