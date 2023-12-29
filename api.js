@@ -1,13 +1,13 @@
 const commentsUrl = "https://wedev-api.sky.pro/api/v2/:igror-shipitko/comments";
-const userUrL = "https://wedev-api.sky.pro/api/user/login";
-const newUserUrl = "https://wedev-api.sky.pro/api/user"
+const userUrL =     "https://wedev-api.sky.pro/api/user/login";
+const newUserUrl =  "https://wedev-api.sky.pro/api/user"
 
 export let token;
 export const setToken = (newToken) => {
     token = newToken;
-
 } 
 
+// localStorage.setItem('token', 'token');
 export function getComments() {
     return fetch(commentsUrl, {
         method: "GET",
@@ -28,7 +28,7 @@ export function postComment(name, text) {
         body: JSON.stringify({
             name: name,
             text: text,
-            forceError: true,
+            // forceError: true,
         })
     }).then((response) => {
         return response.json()
@@ -46,17 +46,30 @@ export function deleteComment({id}) {
     }); 
 };
 
+export function likeComment({ id }) {
+    console.log(likeComment);
+    return fetch(`${commentsUrl}/${id}/toggle-like`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }).then((response) => {
+       return response.json()
+    }); 
+};
+
 export function login({login, password }) {
     return fetch(userUrL, {
         method: "POST",
         body: JSON.stringify({
            login,
            password,
-            // forceError: true,
+            forceError: true,
         })
     }).then((response) => {
         return response.json()
-     }); 
+    })
+    
 };
 
 export function registration({login, name, password }) {
@@ -65,7 +78,7 @@ export function registration({login, name, password }) {
         body: JSON.stringify({
             login,
             name,
-           password,
+            password,
             // forceError: true,
         })
     }).then((response) => {

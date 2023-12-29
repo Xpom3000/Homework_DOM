@@ -21,34 +21,35 @@ export const renderComments = (comments) => {
                     <button id=delete-form-button class="delete-form-button" data-id="${comment.id}">Удалить</button>
                     <div class="likes">
                         <span class="likes-counter">${comment.likes}</span>
-                        <button class="${comment.isLike ? 'like-button active-like': 'like-button'} " data-index="${index}" ></button>
+                        <button class="${comment.isLike? 'like-button active-like': 'like-button'} " data-id="${comment.id}" ></button>
                     </div>
                 </div>
              </li>`;
         }).join("");
     const appHtml = `
     <div class="container" id="add-container">
-      <ul class="comments" id="comments" >${commentsHtml}</ul>
-      ${user? `
-      <div id="loading"></div>
-      <div class="add-form" id="add-form">
-        <input type="text" class="add-form-name" placeholder="Введите ваше имя" value="${user?.name}" readly id="name-input"/>
-        <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4" id="comment-input"></textarea>
-        <div class="add-form-row">
-          <button class="add-form-button" id="add-button">Написать</button>
-        </div>
-      </div>` :'<button class="login-button" id="login-button">Авторизоваться</button>'}
+        <ul class="comments" id="comments" >${commentsHtml}</ul>
+        ${user? `
+        <div id="loading"></div>
+        <div class="add-form" id="add-form">
+            <input type="text" class="add-form-name" placeholder="Введите ваше имя"  id="name-input" value="${user?.name}" readonly/>
+            <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4" id="comment-input"></textarea>
+            <div class="add-form-row">
+                 <button class="add-form-button" id="add-button">Написать</button>
+            </div>
+        </div>` :'<button class="link-form-button" id="login-button">Чтобы добавить коментарий, <a class="link">авторизуйтесь</a> </button>'}
 
     </div>`;
     appElement.innerHTML = appHtml;
     // кнопка Цитирования
     const quoteElements = document.querySelectorAll(".comment");
+    const commentInputElement = document.getElementById("comment-input");
     for (const comment of quoteElements) {
         comment.addEventListener("click", () => {
         const index = comment.dataset.index;
             const comentText = comments[index].text;
             const comentAuthor = comments[index].name;
-            commentInputElement.value = `>${comentAuthor} ${comentText} `;
+            commentInputElement.value = `<${comentAuthor}> ${comentText} `;
         })
     };
 
@@ -60,36 +61,33 @@ export const renderComments = (comments) => {
         const nameInputElement = document.getElementById("name-input");
         const commentInputElement = document.getElementById("comment-input");
         const loaderElement = document.getElementById("loading");
-
+       
         buttonElement.addEventListener("click", () => {
-            console.log(nameInputElement);
             nameInputElement.style.backgroundColor = "white" ;
             commentInputElement.style.backgroundColor = "white";
             if (nameInputElement.value === "") {
-            nameInputElement.style.backgroundColor = "red";
+            nameInputElement.style.backgroundColor = "pink";
+            return;
+            } if (commentInputElement.value === "") {
+            commentInputElement.style.backgroundColor = "pink";
             return;
             }
-            if (commentInputElement.value === "") {
-            commentInputElement.style.backgroundColor = "red";
-            return;
-            }
+
             buttonElement.disabled = true;
             buttonElement.textContent = "Комментарий добавляется...";
-            
             const handlePostClick = () => {
                 postComment(
                     nameInputElement.value,
                     commentInputElement.value,
                 )
                 .then((response) => {
-                    //console.log(response);
                     if (response.status === 201) {
-                       return response.json();
+                        return response.json();
                     }
                     if (response.status === 400) {
-                        throw new Error("Неверный запрос"); 
+                        throw new Error("Неверный запрос");
                     } if (response.status === 500) {
-                      throw new Error("Сервер упал");
+                        throw new Error("Сервер упал");
                     }
                 })
                 .then((responseData) => {
@@ -99,13 +97,13 @@ export const renderComments = (comments) => {
                     buttonElement.disabled = false;
                     buttonElement.textContent = "Написать";
                     nameInputElement.value = "";
-                    commentInputElement.value = ""; 
+                    commentInputElement.value = "";
                 })
                 .catch((error) => {
                     buttonElement.disabled = false;
                     buttonElement.textContent = "Написать";
                     if (error.message === "Неверный запрос") {
-                      alert("Имя и комментарий должны быть не короче 3 символов")
+                        alert("Имя и комментарий должны быть не короче 3 символов")
                     } if (error.message === "Сервер упал") {
                         alert("Кажется, что-то пошло не так, попробуй позже")
                         handlePostClick();
@@ -113,16 +111,17 @@ export const renderComments = (comments) => {
                         alert("Кажется,сломался интернет, попробуй позже");
                     }
                     console.warn(error);
-                })
+                });
             };       
             initDeleteButtonLisners(comments);
             handlePostClick();
             renderComments(comments);
-            
         });
-    }
-    const loginButtonElement = document.getElementById('login-button')
+    } else {
+        const loginButtonElement = document.getElementById('login-button')
         loginButtonElement.addEventListener("click", () => {   
         renderLogin();
     });
+    } 
+   
 };

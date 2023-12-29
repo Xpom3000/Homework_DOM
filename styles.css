@@ -149,11 +149,14 @@ body {
     font-family: Helvetica;
     border-radius: 8px;
     border: none;
+    background-color: rgb(196, 246, 232);
+
   }
 
   .add-form-login {
     width: 500px;
     padding: 11px 22px;
+    
   }
 
   .add-form-password {
@@ -173,12 +176,14 @@ body {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    align-items: center;
   }
 
   .login-form-button {
+    width: 500px; ;
     margin-top: 24px;
-    font-size: 24px;
-    padding: 10px 20px;
+    font-size: 22px;
+    padding: 10px 25px;
     background-color: #bcec30;
     border: none;
     border-radius: 18px;
@@ -191,24 +196,34 @@ body {
   .login-button {
     margin-top: 24px;
     font-size: 24px;
-    /* padding: 10px 20px; */
     color: #ffffff;
-    background-color: #202020;
+    background-color: transparent;
     border: none;
-    /* border-radius: 18px; */
+    text-decoration: underline;
     cursor: pointer;
   }
+  
 
   .link-form-button {
-    margin-top: 24px;
-    font-size: 24px;
-    padding: 10px 15px;
-    background-color: #bcec30;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: transparent;
     border: none;
-    border-radius: 18px;
+    /* text-decoration: underline; */
+    /* cursor: pointer; */
+  }
+ 
+  .link{
+    margin-top: 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
     cursor: pointer;
   }
-  .link-form-button:hover {
+  .link:hover {
     opacity: 0.9;
   }
 
@@ -226,7 +241,7 @@ body {
     opacity: 0.9;
   }
   .error {
-    border: red 1px solid;
+    border: rgb(213, 107, 107) 1px solid;
   }
   .right {
     border: white 1px solid;
