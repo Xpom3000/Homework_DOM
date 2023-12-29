@@ -12,6 +12,20 @@ export const setUser = (newUser) => {
     user = newUser;
 };
 
+
+
+  
+  
+  // Извлечение объекта из localStorage
+//   const localValue = localStorage.getItem('user')
+  console.log(localStorage.getItem('user'));
+
+
+
+
+// localStorage.setItem('user', JSON.stringify(user))
+// export const localToken = localStorage.getItem('user', 'token')
+
 export const fetchAndRenderComments = (comments) => { 
     getComments()
     .then((responseData) => {
@@ -27,7 +41,7 @@ export const fetchAndRenderComments = (comments) => {
         });
         comments = appComments;
         renderComments(comments);
-        likeComment({ id });
+        // likeComment({ id });
     });
 };
 fetchAndRenderComments(comments);

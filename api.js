@@ -6,6 +6,9 @@ export let token;
 export const setToken = (newToken) => {
     token = newToken;
 } 
+// const getUserFromLocalStorage = () => {
+//     localStorage.setItem('User', `${token}`); 
+//  }
 
 // localStorage.setItem('token', 'token');
 export function getComments() {
@@ -32,7 +35,7 @@ export function postComment(name, text) {
         })
     }).then((response) => {
         return response.json()
-     }); 
+    }); 
 };
 
 export function deleteComment({id}) {
@@ -83,5 +86,5 @@ export function registration({login, name, password }) {
         })
     }).then((response) => {
         return response.json()
-     }); 
+    }); 
 };
