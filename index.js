@@ -1,33 +1,31 @@
 //use strict";
-import { getComments, likeComment } from './api.js'
+import { getComments} from './api.js'
 import { formatDateTime } from './date.js';
 import { renderComments } from './render.js';
+import { setToken } from './api.js';
+import {
+    getUserFromLocalStorage,
+    saveUserToLocalStorage,
+    removeUserFromLocalStorage
+} from './helpers.js'
 
 // Запрос двнных в API на комментарий
 let comments = [];
-// export let user = getUserFromLocalStorage;
-
-export let user = null;
+// сохраняем 
+export let user = getUserFromLocalStorage();
+// export let user = null;
 export const setUser = (newUser) => {
     user = newUser;
+    saveUserToLocalStorage(user)
 };
 
-
-
-  
-  
-  // Извлечение объекта из localStorage
-//   const localValue = localStorage.getItem('user')
-  console.log(localStorage.getItem('user'));
-
-
-
-
-// localStorage.setItem('user', JSON.stringify(user))
-// export const localToken = localStorage.getItem('user', 'token')
+export const logout = () => {
+    user = null;
+    removeUserFromLocalStorage();
+  };
 
 export const fetchAndRenderComments = (comments) => { 
-    getComments()
+    getComments({ token: setToken() })
     .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
             return {
@@ -41,7 +39,6 @@ export const fetchAndRenderComments = (comments) => {
         });
         comments = appComments;
         renderComments(comments);
-        // likeComment({ id });
     });
 };
 fetchAndRenderComments(comments);

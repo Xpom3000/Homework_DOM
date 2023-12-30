@@ -1,5 +1,4 @@
 import { likeComment } from "./api.js";
-import { renderComments } from "./render.js";
 import { fetchAndRenderComments } from "./index.js";
 
 export const initLikesListeners = (comments) => {
