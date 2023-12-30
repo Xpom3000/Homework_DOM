@@ -22,7 +22,8 @@ body {
   }
 
   .comment,
-  .add-form {
+  .add-form,
+  .login-form {
     width: 596px;
     box-sizing: border-box;
     background: radial-gradient(
@@ -141,6 +142,91 @@ body {
     opacity: 0.9;
   }
 
+
+  .add-form-login,
+  .add-form-password {
+    font-size: 16px;
+    font-family: Helvetica;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(196, 246, 232);
+
+  }
+
+  .add-form-login {
+    width: 500px;
+    padding: 11px 22px;
+    
+  }
+
+  .add-form-password {
+    margin-top: 12px;
+    width: 500px;
+    padding: 8px 22px;
+    resize: none;
+  }
+  .login-form {
+    padding: 20px;
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  .login-form-row {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-form-button {
+    width: 500px; ;
+    margin-top: 24px;
+    font-size: 22px;
+    padding: 10px 25px;
+    background-color: #bcec30;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+  }
+    .login-form-button:hover {
+    opacity: 0.9;
+  }
+
+  .login-button {
+    margin-top: 24px;
+    font-size: 24px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+
+  .link-form-button {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    /* text-decoration: underline; */
+    /* cursor: pointer; */
+  }
+ 
+  .link{
+    margin-top: 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .link:hover {
+    opacity: 0.9;
+  }
+
   .delete-form-button {
     margin-top: 24px;
     
@@ -155,7 +241,7 @@ body {
     opacity: 0.9;
   }
   .error {
-    border: red 1px solid;
+    border: rgb(213, 107, 107) 1px solid;
   }
   .right {
     border: white 1px solid;
