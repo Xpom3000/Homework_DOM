@@ -51,4 +51,3 @@ fetchAndRenderComments(comments);
 //delete.js
 //форма добавления  
 
-
