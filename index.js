@@ -1,17 +1,25 @@
 //use strict";
 import { getComments} from './api.js'
-import { formatDateTime } from './date.js';
+// import { formatDateTime } from './date.js';
 import { renderComments } from './render.js';
 import { setToken } from './api.js';
+import { format } from 'date-fns';
 import {
     getUserFromLocalStorage,
     saveUserToLocalStorage,
     removeUserFromLocalStorage
 } from './helpers.js'
+let comments = [];
+
+// Форматируем дату из библиотеки date-fns
+const now = new Date();
+const createDate = 
+// format(now, "dd/MM/yyyy hh:mm"); // 26/03/2023 10:33
+// format(now, "MM-dd-yyyy hh:mm"); // 03-26-2023 10:33
+// format(now, "dd.MM.yyyy hh:mm:ss"); // 26.03.2023 10:33:41
+    format(now, "yyyy-MM-dd hh.mm.ss"); // 2023-03-26 10.33.41
 
 // Запрос двнных в API на комментарий
-let comments = [];
-// сохраняем 
 export let user = getUserFromLocalStorage();
 // export let user = null;
 export const setUser = (newUser) => {
@@ -31,7 +39,7 @@ export const fetchAndRenderComments = (comments) => {
             return {
                 id: comment.id,
                 name: comment.author.name,
-                date: formatDateTime(comment.date),
+                date: createDate,
                 text: comment.text,
                 likes: comment.likes,
                 isLiked: false,

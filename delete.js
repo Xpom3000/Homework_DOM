@@ -5,7 +5,6 @@ export const initDeleteButtonLisners = (comments) => {
     // deleteButtonElements.disabled = true;
     const deleteButtonElements = document.querySelectorAll(".delete-form-button");
     for (const deleteButtonElement of deleteButtonElements) {
-        // 
         deleteButtonElement.addEventListener("click", (event) => {
             event.stopPropagation();
             const id = deleteButtonElement.dataset.id;
@@ -13,10 +12,6 @@ export const initDeleteButtonLisners = (comments) => {
             .then(() => {
                 fetchAndRenderComments(comments);
             })
-            // .then(() => {
-            //     deleteButtonElements.disabled = false;
-            // })
-            
         });
     };
 };

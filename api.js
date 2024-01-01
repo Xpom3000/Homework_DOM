@@ -1,4 +1,7 @@
 import { user } from "./index.js";
+import { sanitizeHtml } from './sanitizeHtml.js'
+import _ from 'lodash';
+
 const commentsUrl = "https://wedev-api.sky.pro/api/v2/:igror-shipitko/comments";
 const userUrL =     "https://wedev-api.sky.pro/api/user/login";
 const newUserUrl =  "https://wedev-api.sky.pro/api/user"
@@ -37,8 +40,8 @@ export function postComment(name, text) {
             Authorization: setToken(),
         },
         body: JSON.stringify({
-            name: name,
-            text: text,
+            // name: name,
+            text: sanitizeHtml(text),
             // forceError: true,
         })
     }).then((response) => {
@@ -91,7 +94,7 @@ export function registration({login, name, password }) {
         method: "POST",
         body: JSON.stringify({
             login,
-            name,
+            name: _.capitalize(name),
             password,
             // forceError: true,
         })

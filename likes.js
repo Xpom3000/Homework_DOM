@@ -8,7 +8,6 @@ export const initLikesListeners = (comments) => {
             event.stopPropagation();
             const id = commentElement.dataset.id;
             likeComment({ id })
-            // fetchAndRenderComments(comments)
             .then(() => {
                 fetchAndRenderComments(comments);
             })

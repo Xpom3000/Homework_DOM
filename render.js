@@ -2,13 +2,14 @@ import { renderLogin } from './renderLogin.js';
 import { initLikesListeners } from './likes.js';
 import { initDeleteButtonLisners } from './delete.js';
 import { postComment } from './api.js'
-import { fetchAndRenderComments, user} from './index.js';
+import { fetchAndRenderComments, user } from './index.js';
+// import { format } from 'date-fns';
 
 export const renderComments = (comments) => {
     console.log(comments);
     const appElement = document.getElementById("app")
     const commentsHtml = comments
-        .map((comment, index ) => {
+        .map((comment, index) => {
             return `<li class="comment"  data-index="${index}" id="comment">
                 <div class="comment-header" >
                     <div class="comment-name">${comment.name}</div>
@@ -24,6 +25,7 @@ export const renderComments = (comments) => {
                         <button class="${comment.isLike? 'like-button active-like': 'like-button'} " data-id="${comment.id}" ></button>
                     </div>
                 </div>
+              
              </li>`;
         }).join("");
     const appHtml = `
@@ -38,7 +40,6 @@ export const renderComments = (comments) => {
                  <button class="add-form-button" id="add-button">Написать</button>
             </div>
         </div>` :'<button class="link-form-button" id="login-button">Чтобы добавить коментарий, <a class="link">авторизуйтесь</a> </button>'}
-
     </div>`;
     appElement.innerHTML = appHtml;
     // кнопка Цитирования
@@ -54,6 +55,7 @@ export const renderComments = (comments) => {
     };
 
     initLikesListeners(comments);
+    
     initDeleteButtonLisners(comments);
 
     if (user) {
