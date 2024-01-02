@@ -3,8 +3,8 @@ import { fetchAndRenderComments, setUser } from "./index.js";
 import { registrationLogin } from "./renderRegistration.js";
 
 export const renderLogin = () => {
-    const appElement = document.getElementById("app")
-    const loginHtml = `
+  const appElement = document.getElementById("app");
+  const loginHtml = `
         <div class="container" id="add-container">
             <ul class="comments" id="comments" ></ul>
             <div id="loading"></div>
@@ -18,44 +18,55 @@ export const renderLogin = () => {
                 <button class="login-button" id="registration-button">Регистрация</button>
             </div>
         </div>`;
-    appElement.innerHTML = loginHtml;
+  appElement.innerHTML = loginHtml;
 
-    const loginInputElement = document.getElementById('login-input');
-    const passwordInputElement = document.getElementById('password-input');
-    const loginButtonElement = document.getElementById('login-button');
+  const loginInputElement = document.getElementById("login-input");
+  const passwordInputElement = document.getElementById("password-input");
+  const loginButtonElement = document.getElementById("login-button");
 
-    loginButtonElement.addEventListener("click", () => {
-        loginInputElement.style.backgroundColor = "white" ;
-        passwordInputElement.style.backgroundColor = "white";
-        if (loginInputElement.value === "" || passwordInputElement.value === "") {
-            loginInputElement.style.backgroundColor = "pink";
-            passwordInputElement.style.backgroundColor = "pink"
-        return;
-        }
-        loginButtonElement.disabled = true;
-        loginButtonElement.textContent = "Идет авторизация.";
-        const handleLoginClick = () => {
-            login({
-                login: loginInputElement.value,
-                password: passwordInputElement.value,   
-            }).then((responseData) => {
-                setToken(responseData.user.token);
-                setUser(responseData.user);
-            }).then(() => {
-                fetchAndRenderComments(comments);
-            }).then(() => {
-                loginButtonElement.disabled = false;
-                loginButtonElement.textContent = "Войти";
-                loginInputElement.value = "";
-                passwordInputElement.value = "";
-            });
-        };
-        handleLoginClick();
-    });
-    
-    const registrationButtonElement = document.getElementById('registration-button')
-    registrationButtonElement.addEventListener("click", () => {   
-        registrationLogin();
-    });
-    
+  loginButtonElement.addEventListener("click", () => {
+    loginInputElement.style.backgroundColor = "white";
+    passwordInputElement.style.backgroundColor = "white";
+    if (loginInputElement.value === "" || passwordInputElement.value === "") {
+      loginInputElement.style.backgroundColor = "pink";
+      passwordInputElement.style.backgroundColor = "pink";
+      return;
+    }
+    loginButtonElement.disabled = true;
+    loginButtonElement.textContent = "Идет авторизация.";
+    const handleLoginClick = () => {
+      login({
+        login: loginInputElement.value,
+        password: passwordInputElement.value,
+      })
+        .then((responseData) => {
+          setToken(responseData.user.token);
+          setUser(responseData.user);
+        })
+        .then(() => {
+          fetchAndRenderComments(comments);
+        })
+        .then(() => {
+          loginButtonElement.disabled = false;
+          loginButtonElement.textContent = "Войти";
+          loginInputElement.value = "";
+          passwordInputElement.value = "";
+        })
+        .catch((error) => {
+          loginButtonElement.disabled = false;
+          loginButtonElement.textContent = "Войти";
+          if (error.message === "Неверный запрос") {
+            alert("Логин или пороль не верны");
+          }
+        });
+    };
+    handleLoginClick();
+  });
+
+  const registrationButtonElement = document.getElementById(
+    "registration-button",
+  );
+  registrationButtonElement.addEventListener("click", () => {
+    registrationLogin();
+  });
 };
