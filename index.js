@@ -4,9 +4,9 @@ import { renderComments } from "./render.js";
 import { setToken } from "./api.js";
 import { format } from "date-fns";
 import {
-  // getUserFromLocalStorage,
-  saveUserToLocalStorage,
-  removeUserFromLocalStorage,
+  getFromLocalStorage,
+  saveToLocalStorage,
+  removeFromLocalStorage,
 } from "./helpers.js";
 let comments = [];
 
@@ -18,16 +18,16 @@ const createDate =
   // format(now, "dd.MM.yyyy hh:mm:ss"); // 26.03.2023 10:33:41
   format(now, "yyyy-MM-dd hh.mm.ss"); // 2023-03-26 10.33.41
 
-// export let user = getUserFromLocalStorage();
-export let user = null;
+export let user = getFromLocalStorage();
+// export let user = null;
 export const setUser = (newUser) => {
   user = newUser;
-  saveUserToLocalStorage(user);
+  saveToLocalStorage(user);
 };
 
 export const logout = () => {
   user = null;
-  removeUserFromLocalStorage();
+  removeFromLocalStorage();
 };
 // Запрос двнных в API на комментарий
 export const fetchAndRenderComments = (comments) => {
