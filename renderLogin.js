@@ -44,6 +44,7 @@ export const renderLogin = () => {
           setUser(responseData.user);
         })
         .then(() => {
+          // eslint-disable-next-line no-undef
           fetchAndRenderComments(comments);
         })
         .then(() => {

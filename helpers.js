@@ -1,9 +1,9 @@
-
 // Сохраняем данные об объекте User в localStorage
 export function saveUserToLocalStorage(user) {
   window.localStorage.setItem("user", JSON.stringify(user));
 }
 // Достаем данные  объекта User из localStorage
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getUserFromLocalStorage(user) {
   try {
     return JSON.parse(window.localStorage.getItem("user"));
@@ -12,6 +12,7 @@ export function getUserFromLocalStorage(user) {
   }
 }
 // Удаляем данные об объекте User из localStorage
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function removeUserFromLocalStorage(user) {
   window.localStorage.removeItem("user");
 }

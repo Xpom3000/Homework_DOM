@@ -53,6 +53,7 @@ export const registrationLogin = () => {
       password: passwordInputElement.value,
     })
       .then(() => {
+        // eslint-disable-next-line no-undef
         return fetchAndRenderComments(comments);
       })
       .then(() => {
