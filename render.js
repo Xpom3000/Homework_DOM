@@ -8,24 +8,24 @@ export const renderComments = (comments) => {
     console.log(comments);
     const appElement = document.getElementById("app");
     const commentsHtml = comments
-        .map((comment, index) => {
-            console.log(comment.isLiked)
-            return `<li class="comment"  data-index="${index}" id="comment">
-                <div class="comment-header" >
-                    <div class="comment-name">${comment.name}</div>
-                    <div>${comment.date}</div>
+    .map((comment, index) => {
+        console.log(comment.isLiked)
+        return `<li class="comment"  data-index="${index}" id="comment">
+            <div class="comment-header" >
+                <div class="comment-name">${comment.name}</div>
+                <div>${comment.date}</div>
+            </div>
+            <div class="comment-body">
+                <div class="comment-text">${comment.text}</div>
+            </div>
+            <div class="${user ? "comment-footer": "comment-footer-notUser"}">
+                <button id=delete-form-button class="${user? "delete-form-button ": "delete-button "}" data-id="${comment.id}">Удалить</button>
+                <div class="likes"><span class="likes-counter">${comment.likes}</span>
+                    <button class="${comment.isLiked ? "like-button active-like": "like-button"}" data-id="${comment.id}" ></button>
                 </div>
-                <div class="comment-body">
-                    <div class="comment-text">${comment.text}</div>
-                </div>
-                <div class="comment-footer">
-                    <button id=delete-form-button class="delete-form-button " data-id="${comment.id}">Удалить</button>
-                    <div class="likes"><span class="likes-counter">${comment.likes}</span>
-                        <button class="${comment.isLiked ? "like-button active-like": "like-button"}" data-id="${comment.id}" ></button>
-                    </div>
-                </div>
-             </li>`;
-        })
+            </div>
+         </li>`;
+    })
         .join("");
     const appHtml = `
     <div class="container" id="add-container">

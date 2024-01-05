@@ -57,6 +57,12 @@ body {
   flex-direction: row;
 }
 
+.comment-footer-notUser {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
 .comment-name {
   word-break: break-all;
 }

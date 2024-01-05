@@ -31,7 +31,8 @@ export const logout = () => {
 };
 // Запрос двнных в API на комментарий
 export const fetchAndRenderComments = (comments) => {
-  getComments({ token: setToken() }).then((responseData) => {
+  getComments({ token: setToken() })
+    .then((responseData) => {
     const appComments = responseData.comments.map((comment) => {
       return {
         id: comment.id,

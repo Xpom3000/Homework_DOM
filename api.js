@@ -22,7 +22,7 @@ export function getComments() {
   });
 }
 
-export function postComment(name, text) {
+export function postComment( text) {
   return fetch(commentsUrl, {
     method: "POST",
     headers: {
