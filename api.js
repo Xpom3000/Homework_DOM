@@ -22,14 +22,13 @@ export function getComments() {
   });
 }
 
-export function postComment(name, text) {
+export function postComment(text) {
   return fetch(commentsUrl, {
     method: "POST",
     headers: {
       Authorization: setToken(),
     },
     body: JSON.stringify({
-      // name: name,
       text: sanitizeHtml(text),
       // forceError: true,
     }),

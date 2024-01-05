@@ -18,8 +18,8 @@ export const renderComments = (comments) => {
                 <div class="comment-body">
                     <div class="comment-text">${comment.text}</div>
                 </div>
-                <div class="comment-footer">
-                    <button id=delete-form-button class="delete-form-button " data-id="${comment.id}">Удалить</button>
+                <div class="${user ? "comment-footer": "comment-footer-notUser"}">
+                    <button id=delete-form-button class="${user? "delete-form-button ": "delete-button "}" data-id="${comment.id}">Удалить</button>
                     <div class="likes"><span class="likes-counter">${comment.likes}</span>
                         <button class="${comment.isLiked ? "like-button active-like": "like-button"}" data-id="${comment.id}" ></button>
                     </div>
@@ -30,18 +30,16 @@ export const renderComments = (comments) => {
     const appHtml = `
     <div class="container" id="add-container">
         <ul class="comments" id="comments" >${commentsHtml}</ul>
-        ${
-            user
-                ? `
+        ${user? `
         <div id="loading"></div>
         <div class="add-form" id="add-form">
             <input type="text" class="add-form-name" placeholder="Введите ваше имя"  id="name-input" value="${user?.name}" readonly/>
             <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4" id="comment-input"></textarea>
             <div class="add-form-row">
-                 <button class="add-form-button" id="add-button">Написать</button>
+                <button class="add-form-button" id="add-button">Написать</button>
             </div>
         </div>`
-                : '<button class="link-form-button" id="login-button">Чтобы добавить коментарий, <cite class="link">авторизуйтесь</cite> </button>'
+            : '<button class="link-form-button" id="login-button">Чтобы добавить коментарий, <cite class="link">авторизуйтесь</cite> </button>'
         }
     </div>`;
     appElement.innerHTML = appHtml;
