@@ -67,7 +67,7 @@ export function login({ login, password }) {
     body: JSON.stringify({
       login,
       password,
-      forceError: true,
+      // forceError: true,
     }),
   }).then((response) => {
     if (response.status === 400) {

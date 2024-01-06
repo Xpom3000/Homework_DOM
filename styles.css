@@ -56,6 +56,17 @@ body {
   justify-content: space-between;
   flex-direction: row;
 }
+.comment-footer-notUser {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.comment-footer-notUser {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
 
 .comment-name {
   word-break: break-all;
@@ -154,11 +165,6 @@ body {
   padding: 11px 22px;
 }
 
-/* .add-form-login {
-  width: 500px;
-  padding: 11px 22px;
-} */
-
 .add-form-password {
   margin-top: 12px;
 
@@ -227,7 +233,6 @@ body {
 
 .delete-form-button {
   margin-top: 24px;
-
   font-size: 24px;
   padding: 10px 20px;
   background-color: #bcec30;
