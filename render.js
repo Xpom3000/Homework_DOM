@@ -17,8 +17,8 @@ export const renderComments = (comments) => {
                 <div class="comment-body">
                     <div class="comment-text">${comment.text}</div>
                 </div>
-                <div class="comment-footer">
-                    <button id=delete-form-button class="delete-form-button" data-id="${comment.id}">Удалить</button>
+                <div class="${user ? "comment-footer": "comment-footer-notUser"}">
+                    <button id=delete-form-button class="${user? "delete-form-button ": "delete-button "}" data-id="${comment.id}">Удалить</button>
                     <div class="likes">
                         <span class="likes-counter">${comment.likes}</span>
                         <button class="${comment.isLike? 'like-button active-like': 'like-button'} " data-id="${comment.id}" ></button>
@@ -60,7 +60,7 @@ export const renderComments = (comments) => {
         const buttonElement = document.getElementById("add-button");
         const nameInputElement = document.getElementById("name-input");
         const commentInputElement = document.getElementById("comment-input");
-        const loaderElement = document.getElementById("loading");
+        // const loaderElement = document.getElementById("loading");
        
         buttonElement.addEventListener("click", () => {
             nameInputElement.style.backgroundColor = "white" ;

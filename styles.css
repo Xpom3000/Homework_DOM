@@ -56,6 +56,12 @@ body {
     justify-content: space-between;
     flex-direction: row;
   }
+
+  .comment-footer-notUser {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
   .comment-name {
     word-break: break-all;
   }
@@ -239,6 +245,10 @@ body {
   }
   .delete-form-button:hover {
     opacity: 0.9;
+  }
+
+  .delete-button {
+    display: none;
   }
   .error {
     border: rgb(213, 107, 107) 1px solid;

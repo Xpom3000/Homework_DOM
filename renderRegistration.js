@@ -51,9 +51,9 @@ export const registrationLogin = () => {
             return renderLogin();
         })
     });
-    const loginButtonElement = document.getElementById('login-button')
-    loginButtonElement.addEventListener("click", () => {   
-    renderLogin();
+        const loginButtonElement = document.getElementById('login-button')
+        loginButtonElement.addEventListener("click", () => {   
+        renderLogin();
 });
 }    
 

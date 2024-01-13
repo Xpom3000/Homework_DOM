@@ -11,9 +11,9 @@ import {
 
 // Запрос двнных в API на комментарий
 let comments = [];
-// сохраняем 
-export let user = getUserFromLocalStorage();
-// export let user = null;
+// Берем данные user из localStorage
+// export let user = getUserFromLocalStorage();
+export let user = null;
 export const setUser = (newUser) => {
     user = newUser;
     saveUserToLocalStorage(user)
@@ -34,7 +34,7 @@ export const fetchAndRenderComments = (comments) => {
                 date: formatDateTime(comment.date),
                 text: comment.text,
                 likes: comment.likes,
-                isLiked: false,
+                isLiked: comment.isLikedlikes
             };
         });
         comments = appComments;
